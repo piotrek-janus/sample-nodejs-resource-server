@@ -70,7 +70,7 @@ export const createOAuthJWTValidator = async function(config) {
             }
 
             try {    
-                // results of userinfo endpoint can be cached for some time (~30s?) per token, 
+                // results of userinfo endpoint should be cached for some time (~30s?) per token, 
                 // to avoid calling the endpoint for each request to the resource server
                 const resp = await fetch(config.userinfo_endpoint, {
                     headers: {
