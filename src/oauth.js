@@ -61,7 +61,8 @@ export const createOAuthJWTValidator = async function(config) {
             } catch (err) {
                 if (err instanceof jose.errors.JWSSignatureVerificationFailed || 
                     err instanceof jose.errors.JWTInvalid || 
-                    err instanceof jose.errors.JWKSNoMatchingKey) {   
+                    err instanceof jose.errors.JWKSNoMatchingKey || 
+                    err instanceof jose.errors.JWTExpired) {   
                     return unauthenticated(res, err.message)
                 } else {
                     return unauthorized(res, err.message)
