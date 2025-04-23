@@ -72,16 +72,17 @@ export const createOAuthJWTValidator = async function(config) {
             try {    
                 // results of userinfo endpoint can be cached for some time (~30s?) per token, 
                 // to avoid calling the endpoint for each request to the resource server
-                await fetch(config.userinfo_endpoint, {
+                const resp = await fetch(config.userinfo_endpoint, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
                 })
-            } catch (err) {
-                if (err.status === 401) {
+
+                if (resp.status === 401) {
                     return unauthenticated(res, err.message)
                 }
-
+                
+            } catch (err) {
                 return failure(res, err.message)
             }
             
